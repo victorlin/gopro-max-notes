@@ -31,6 +31,10 @@ Hope this exegesis saved some of you a lot of time and $$$... Good luck!
 
 ## How to concatenate 360 videos recorded by the GoPro MAX?
 
+UPDATE 2: [rubegartor/ReelSteady-Joiner](https://github.com/rubegartor/ReelSteady-Joiner) can do this with a nice visual interface.
+
+---
+
 _originally from [a Reddit comment](https://www.reddit.com/r/GoProMAX/comments/fbiu7p/comment/fjey4sm/) by [u/gyepi](https://www.reddit.com/user/gyepi/), updated with improvements from [u/Madfcuk](https://www.reddit.com/user/Madfcuk/)'s [comment](https://www.reddit.com/r/GoProMAX/comments/fbiu7p/comment/fkrx87r/?utm_source=share&utm_medium=web2x&context=3); untested_
 
 UPDATE: this process can be automated using a [Python script](https://github.com/victorlin/gopro-max-knowledge/blob/-/concat-gopro-max-exports.py) in the GitHub repository.
