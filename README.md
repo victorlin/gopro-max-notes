@@ -29,7 +29,11 @@ As before, you will need to use the same software, but with an important twist: 
 
 Hope this exegesis saved some of you a lot of time and $$$... Good luck!
 
-## How to concatenate 360 videos recorded by the GoPro MAX?
+## How to concatenate 360 videos?
+
+### 1. Use [ReelSteady Joiner](https://github.com/rubegartor/ReelSteady-Joiner).
+
+### 2. Manually
 
 UPDATE 2: [rubegartor/ReelSteady-Joiner](https://github.com/rubegartor/ReelSteady-Joiner) can do this with a nice visual interface.
 
@@ -37,7 +41,7 @@ UPDATE 2: [rubegartor/ReelSteady-Joiner](https://github.com/rubegartor/ReelStead
 
 _originally from [a Reddit comment](https://www.reddit.com/r/GoProMAX/comments/fbiu7p/comment/fjey4sm/) by [u/gyepi](https://www.reddit.com/user/gyepi/), updated with improvements from [u/Madfcuk](https://www.reddit.com/user/Madfcuk/)'s [comment](https://www.reddit.com/r/GoProMAX/comments/fbiu7p/comment/fkrx87r/?utm_source=share&utm_medium=web2x&context=3); untested_
 
-UPDATE: this process can be automated using a [Python script](https://github.com/victorlin/gopro-max-knowledge/blob/-/concat-gopro-max-exports.py) in the GitHub repository.
+UPDATE: this process can be automated using a [Python script](https://github.com/victorlin/gopro-max-notes/blob/-/concat-gopro-max-exports.py) in the GitHub repository.
 
 Unfortunately I found no way to concatenate the raw .360 files directly. What we can do is to export the .360 files to .mp4 files with the GoPro Player, concatenate these files with ffmpeg, and then reinject the sperical metadata using Google's Spatial Media Metadata Injector. The three software you will need for this are:
 

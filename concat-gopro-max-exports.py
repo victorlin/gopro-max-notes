@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# NOTE: ReelSteady Joiner (https://github.com/rubegartor/ReelSteady-Joiner) is
+# another way to do this.
 from pathlib import Path
 from typing import List
 
@@ -7,10 +10,14 @@ def main():
 
     parser = argparse.ArgumentParser(
             description = "Concatenate videos from GoPro MAX exported by GoPro Player Batch Exporter.")
-    parser.add_argument("-i", "--input-dir", help="Directory containing GoPro MAX exported files")
+    parser.add_argument("-i", "--input-dir", required=True, help="Directory containing GoPro MAX exported files")
     parser.add_argument("-o", "--output-dir", help="Directory to store concatenated files")
     parser.add_argument("--extension", default="mp4", help="Extension of GoPro MAX exported files")
+    parser.add_argument("--cleanup", action="store_true", help="Delete input files?")
     args = parser.parse_args()
+
+    if not args.output_dir:
+        args.output_dir = args.input_dir
 
     recordings = get_recordings(args.input_dir, args.extension)
     for recording_id, video_files in recordings.items():
@@ -21,6 +28,10 @@ def main():
         create_ffmpeg_concat_file(video_files, concat_file)
         output_file = Path(args.output_dir, f"{recording_id}.mp4")
         call_ffmpeg_concat(concat_file, str(output_file))
+    video_files = get_video_files(args.input_dir, args.extension)
+    if args.cleanup:
+        for file in video_files:
+            Path.unlink(file)
 
 
 def get_video_files(directory, extension):
@@ -67,6 +78,8 @@ def create_ffmpeg_concat_file(video_files: List[Path], concat_file):
 def call_ffmpeg_concat(concat_file: str, output_file: str):
     """Call ffmpeg to concatenate video files."""
     import subprocess
+
+    # TODO: take file creation date from first video
 
     # -safe 0 is necessary to handle relative paths
     # -strict unofficial is necessary to …
