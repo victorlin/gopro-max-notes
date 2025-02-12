@@ -82,3 +82,24 @@ Add an XMP tag:
 ```sh
 exiftool -XMP-GPano:ProjectionType="equirectangular"
 ```
+
+## How to convert GoPro 360 to MP4?
+
+### 1. Use GoPro Player
+
+Copy files off of SD card and import from local drive for a better experience.
+
+Export Settings:
+
+- Resolution: highest
+- Codec: HEVC
+- Bit Rate: 75%
+- World Lock: on unless turning
+- Horizon Level: on
+- Mount optimization: off
+
+### 2. Use a fork of ffmpeg
+
+Note: I haven't tried this.
+
+https://www.trekview.org/blog/using-ffmpeg-process-gopro-max-360/
