@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Upload a 360 photo to Google Maps.
+
+# Commands from:       https://developers.google.com/streetview/publish/first-app#uploading-a-photo
+# GOOGLE_MAPS_API_KEY: https://developers.google.com/streetview/publish/first-app#obtain-an-api-key
+# OAUTH_ACCESS_TOKEN:  https://developers.google.com/streetview/publish/first-app#obtain-an-access-token
+
+if [ -z "$GOOGLE_MAPS_API_KEY" ]; then
+    echo "Error: GOOGLE_MAPS_API_KEY is not set."
+    exit 1
+fi
+
+if [ -z "$OAUTH_ACCESS_TOKEN" ]; then
+    echo "Error: OAUTH_ACCESS_TOKEN is not set."
+    exit 1
+fi
+
+file=$1
+
+echo "Getting upload URL …"
+url=$(curl --request POST \
+  --url "https://streetviewpublish.googleapis.com/v1/photo:startUpload?key=${GOOGLE_MAPS_API_KEY}" \
+  --header "authorization: Bearer ${OAUTH_ACCESS_TOKEN}" \
+  --header 'Content-Length: 0'| jq -r '.uploadUrl')
+
+echo "Uploading to $url …"
+curl --request POST \
+  --url ${url} \
+  --header "authorization: Bearer ${OAUTH_ACCESS_TOKEN}" \
+  --upload-file "${file}"
+
+echo "Posting metadata …"
+curl --request POST \
+  --url "https://streetviewpublish.googleapis.com/v1/photo?key=${GOOGLE_MAPS_API_KEY}" \
+  --header "authorization: Bearer ${OAUTH_ACCESS_TOKEN}" \
+  --header 'Content-Type: application/json' \
+  --data "{ 'uploadReference': { 'uploadUrl': '${url}' } }"
+
+echo "Done!"
